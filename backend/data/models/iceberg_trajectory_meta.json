@@ -1,0 +1,57 @@
+{
+  "trained_at": "2026-09-06T14:20:03.912777+00:00",
+  "model_type": "RandomForestRegressor",
+  "feature_columns": [
+    "current_lat",
+    "current_lon",
+    "length_nm",
+    "width_nm",
+    "area_sqkm",
+    "prev_speed_kmday",
+    "prev_bearing_deg",
+    "prev_vel_lat",
+    "prev_vel_lon",
+    "days_ahead"
+  ],
+  "target_columns": [
+    "target_lat",
+    "target_lon"
+  ],
+  "n_train_rows": 317,
+  "n_test_rows": 33,
+  "n_icebergs": 33,
+  "date_range": {
+    "start": "2026-04-24",
+    "end": "2026-07-17"
+  },
+  "validation_split": "last observed hop per iceberg held out; trained on all earlier hops",
+  "validation_results": [
+    {
+      "name": "persistence_baseline",
+      "mean_error_km": 17.6,
+      "median_error_km": 1.71,
+      "max_error_km": 88.39,
+      "n_samples": 33
+    },
+    {
+      "name": "linear_extrapolation_baseline",
+      "mean_error_km": 20.67,
+      "median_error_km": 1.41,
+      "max_error_km": 130.05,
+      "n_samples": 33
+    },
+    {
+      "name": "random_forest_model",
+      "mean_error_km": 18.14,
+      "median_error_km": 3.54,
+      "max_error_km": 110.26,
+      "n_samples": 33
+    }
+  ],
+  "beats_simple_baseline": false,
+  "known_limitations": [
+    "Trained on a single ~3-month window (Apr-Jul 2026) in one season - will not generalize to other seasons without more data.",
+    "Only 33 icebergs, all pre-identified/named (e.g. A76C) - the model cannot detect NEW icebergs, only forecast drift of tracked ones.",
+    "Weekly observation cadence limits precision of short-horizon predictions (e.g. a 1-day-ahead forecast)."
+  ]
+}
